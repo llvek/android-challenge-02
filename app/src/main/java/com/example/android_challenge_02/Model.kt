@@ -4,6 +4,9 @@ import androidx.lifecycle.ViewModel
 
 class Model : ViewModel() {
 
+    var actualPhilosopher = "Loading..."
+    var actualPhrase = "Loading..."
+
     fun getNewPhrase(){
         //gets new phrase
     }
