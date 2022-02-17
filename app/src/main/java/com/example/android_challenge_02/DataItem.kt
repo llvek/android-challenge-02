@@ -1,4 +1,4 @@
-package com.example.android_challenge_02.retrofit
+package com.example.android_challenge_02
 
 data class DataItem(
     val source : String,

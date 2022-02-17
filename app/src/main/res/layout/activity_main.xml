@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/randomQuote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/random_phrase"
@@ -20,7 +20,7 @@
         app:layout_constraintVertical_bias="0.45" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/philosopher"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/philosopher"
@@ -29,11 +29,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/randomQuote"
         app:layout_constraintVertical_bias="0.222" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/newQuoteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/new_phrase_button"
@@ -41,7 +41,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/randomQuote"
         app:layout_constraintVertical_bias="0.911" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

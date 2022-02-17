@@ -1,4 +1,4 @@
-package com.example.android_challenge_02.retrofit
+package com.example.android_challenge_02
 
 import retrofit2.Call
 import retrofit2.http.GET
