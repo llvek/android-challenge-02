@@ -3,6 +3,7 @@ package com.example.android_challenge_02
 import androidx.lifecycle.ViewModel
 import com.example.android_challenge_02.ApiInterface
 import com.example.android_challenge_02.DataItem
+import com.example.android_challenge_02.databinding.ActivityMainBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -22,6 +23,9 @@ class Model : ViewModel() {
 
     fun getNewQuote() {
         var quoteData = DataItem("Not Loaded","Not Loaded", "Not Loaded", "Not Loaded")
+        if(loadingQuotes){
+            quoteData = DataItem("Loading...","Loading...", "Loading...", "Loading...")
+        }
         if(!loadedQuoteData.isEmpty()){
             quoteData = loadedQuoteData.random()
         }
@@ -29,13 +33,10 @@ class Model : ViewModel() {
         actualQuote = quoteData.quote
         actualPhilosopher = quoteData.source
 
-        println("Random Quote:" + actualQuote)
-        println("Random Philosopher:" + actualPhilosopher)
     }
 
     //Get data from API using GET method
-    fun getAllFromApi(){
-        println("Entered on getAllFromApi Function")
+    fun getAllFromApi(binding: ActivityMainBinding) {
         loadingQuotes = true
         val retrofitBuilder = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
@@ -52,8 +53,6 @@ class Model : ViewModel() {
             ) {
                 val responseBody = response.body()!!
 
-                println("Data getted from api")
-
                 loadedQuoteData.clear()
                 for(quoteData in responseBody){
 
@@ -69,16 +68,29 @@ class Model : ViewModel() {
 
                 loadingQuotes = false
                 loaded = true
+
+                getNewQuote()
+                setActualQuote(actualQuote,binding)
+                setActualPhilosopher(actualPhilosopher,binding)
             }
 
             override fun onFailure(call: Call<List<DataItem>?>, t: Throwable) {
-                println("Failed to Load Quotes")
 
-                actualQuote = "Failed to Load"
-                actualPhilosopher = "Failed to Load"
+                setActualQuote("Failed to Load", binding)
+                setActualPhilosopher("Press the button below", binding)
 
                 loadingQuotes = false
             }
         })
+    }
+
+    fun setActualQuote(quote : String, binding : ActivityMainBinding) {
+        actualQuote = quote
+        binding.randomQuote.text = actualQuote
+    }
+
+    fun setActualPhilosopher(philosopher : String, binding : ActivityMainBinding) {
+        actualPhilosopher = philosopher
+        binding.philosopher.text = actualPhilosopher
     }
 }

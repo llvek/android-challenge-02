@@ -20,22 +20,24 @@ class MainActivity : AppCompatActivity() {
         //Starts ViewModel
         val model: Model by viewModels()
 
-        binding.randomQuote.text = model.actualQuote
-        binding.philosopher.text = model.actualPhilosopher
-
         binding.newQuoteButton.setOnClickListener{newQuoteClicked(model)}
 
-        //loadQuotesFromApi(model)
-        model.getAllFromApi()
+        loadQuotesFromApi(model,binding)
+
+        binding.randomQuote.text = model.actualQuote
+        binding.philosopher.text = model.actualPhilosopher
     }
 
-    fun loadQuotesFromApi(model : Model) {
+    fun loadQuotesFromApi(model : Model,binding: ActivityMainBinding) {
         if(!model.loaded) {
-            model.getAllFromApi()
+            model.getAllFromApi(binding)
         }
     }
 
     fun newQuoteClicked(model : Model){
+        if(!model.loaded) {
+            model.getAllFromApi(binding)
+        }
         model.getNewQuote()
         binding.randomQuote.text = model.actualQuote
         binding.philosopher.text = model.actualPhilosopher
