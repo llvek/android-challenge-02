@@ -3,4 +3,6 @@
     <string name="random_phrase">Random Quote</string>
     <string name="philosopher">Philosopher</string>
     <string name="new_phrase_button">New Quote</string>
+    <string name="quote_list_button">Quote List</string>
+    <string name="reload_button">Loading Quotes...</string>
 </resources>

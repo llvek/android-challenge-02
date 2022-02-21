@@ -1,6 +1,7 @@
 package com.example.android_challenge_02
 
 import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.android_challenge_02.databinding.ActivityMainBinding
@@ -21,6 +22,10 @@ class MainActivity : AppCompatActivity() {
         val model: Model by viewModels()
 
         binding.newQuoteButton.setOnClickListener{newQuoteClicked(model)}
+        binding.quoteListButton.setOnClickListener{
+            val intent = Intent(this, QuoteList::class.java)
+            startActivity(intent)
+        }
 
         loadQuotesFromApi(model,binding)
 
