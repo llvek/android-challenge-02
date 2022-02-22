@@ -1,6 +1,7 @@
 package com.example.android_challenge_02
 
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android_challenge_02.databinding.ActivityQuoteListBinding
@@ -51,7 +52,6 @@ class QuoteModel : ViewModel() {
                 loaded = true
 
                 setNewRecyclerView(binding, loadedQuoteData)
-                Log.e("Sucess", "Setted new Recycler")
             }
 
             override fun onFailure(call: Call<List<DataItem>?>, t: Throwable) {
@@ -64,5 +64,6 @@ class QuoteModel : ViewModel() {
 
     fun setNewRecyclerView(binding: ActivityQuoteListBinding, data : Data) {
         binding.recyclerView.adapter = QuoteAdapter(data)
+        binding.reloadList.visibility = View.INVISIBLE
     }
 }

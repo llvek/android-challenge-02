@@ -16,7 +16,8 @@ class QuoteAdapter(data : Data) : RecyclerView.Adapter<QuoteAdapter.ViewHolder>(
     }
 
     override fun onBindViewHolder(holder: QuoteAdapter.ViewHolder, position: Int) {
-        holder.itemText.text = quoteData[position].quote
+        holder.itemQuote.text = quoteData[position].quote
+        holder.itemAuthor.text = quoteData[position].source
     }
 
     override fun getItemCount(): Int {
@@ -24,10 +25,12 @@ class QuoteAdapter(data : Data) : RecyclerView.Adapter<QuoteAdapter.ViewHolder>(
     }
 
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        var itemText: TextView
+        var itemQuote: TextView
+        var itemAuthor: TextView
 
         init {
-            itemText = itemView.findViewById(R.id.recycler_quote)
+            itemQuote = itemView.findViewById(R.id.recycler_quote)
+            itemAuthor = itemView.findViewById(R.id.recycler_author)
         }
     }
 }

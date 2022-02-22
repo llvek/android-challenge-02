@@ -6,6 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".QuoteList">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintVertical_weight="1"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="1dp" />
+
     <Button
         android:id="@+id/reloadList"
         android:layout_width="wrap_content"
@@ -16,7 +24,8 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.974" />
+        app:layout_constraintVertical_bias="0.974"
+        app:layout_constraintVertical_weight="1"/>
 
     <Button
         android:id="@+id/randomQuote"
@@ -28,13 +37,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.976" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="1dp" />
+        app:layout_constraintVertical_bias="0.976"
+        app:layout_constraintVertical_weight="1"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
