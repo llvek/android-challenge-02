@@ -12,8 +12,8 @@ class QuoteList : AppCompatActivity() {
 
     private lateinit var binding: ActivityQuoteListBinding
 
-    private var layoutManager: RecyclerView.LayoutManager? = null
-    private var adapter: RecyclerView.Adapter<PrototypeAdapter.ViewHolder>? = null
+    var layoutManager: RecyclerView.LayoutManager? = null
+    var adapter: RecyclerView.Adapter<PrototypeAdapter.ViewHolder>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,9 +23,9 @@ class QuoteList : AppCompatActivity() {
         setContentView(binding.root)
 
         //Starts ViewModel
-        val model: Model by viewModels()
+        val model: QuoteModel by viewModels()
 
-        binding.randomQuote.setOnClickListener{
+        binding.randomQuote.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
@@ -36,5 +36,7 @@ class QuoteList : AppCompatActivity() {
 
         adapter = PrototypeAdapter()
         binding.recyclerView.adapter = adapter
+
+        model.getAllFromApi(binding)
     }
 }
