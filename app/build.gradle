@@ -55,4 +55,7 @@ dependencies {
 
     //androidx.activity implementation
     implementation("androidx.activity:activity-ktx:1.4.0")
+
+    // ViewModel and liveData
+    //implementation 'android.arch.lifecycle:extensions:1.1.1'
 }

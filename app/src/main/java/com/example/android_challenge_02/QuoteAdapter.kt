@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 
 class QuoteAdapter(data : Data) : RecyclerView.Adapter<QuoteAdapter.ViewHolder>() {
@@ -31,6 +32,12 @@ class QuoteAdapter(data : Data) : RecyclerView.Adapter<QuoteAdapter.ViewHolder>(
         init {
             itemQuote = itemView.findViewById(R.id.recycler_quote)
             itemAuthor = itemView.findViewById(R.id.recycler_author)
+
+            itemView.setOnClickListener{
+                val position : Int = adapterPosition
+
+                Toast.makeText(itemView.context, "you clicked on ${quoteData[position].source} quote", Toast.LENGTH_LONG).show()
+            }
         }
     }
 }
