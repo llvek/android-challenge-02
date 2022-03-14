@@ -12,9 +12,6 @@ class QuoteList : AppCompatActivity() {
 
     private lateinit var binding: ActivityQuoteListBinding
 
-    var layoutManager: RecyclerView.LayoutManager? = null
-    var adapter: RecyclerView.Adapter<PrototypeAdapter.ViewHolder>? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quote_list)
@@ -26,17 +23,23 @@ class QuoteList : AppCompatActivity() {
         val model: QuoteModel by viewModels()
 
         binding.randomQuote.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            Intent(this, MainActivity::class.java).also {
+                it.putExtra("QUOTE", "Loading...")
+                it.putExtra("AUTHOR", "Loading...")
+                startActivity(it)
+            }
         }
+        var linearLayout = LinearLayoutManager(this)
+        binding.recyclerView.apply{ adapter = PrototypeAdapter(); layoutManager = linearLayout }
 
-        layoutManager = LinearLayoutManager(this)
+        model.getAllFromApi(binding, this)
+    }
 
-        binding.recyclerView.layoutManager = layoutManager
-
-        adapter = PrototypeAdapter()
-        binding.recyclerView.adapter = adapter
-
-        model.getAllFromApi(binding)
+    fun startQuoteScreen(quote : String, author : String) {
+        Intent(this, MainActivity::class.java).also {
+            it.putExtra("QUOTE", quote)
+            it.putExtra("AUTHOR", author)
+            startActivity(it)
+        }
     }
 }
