@@ -27,10 +27,12 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        loadQuotesFromApi(model,binding)
+        binding.randomQuote.text = intent.getStringExtra("QUOTE")
+        binding.philosopher.text = intent.getStringExtra("AUTHOR")
 
-        binding.randomQuote.text = model.actualQuote
-        binding.philosopher.text = model.actualPhilosopher
+        if(intent.getStringExtra("QUOTE")=="Loading..."){
+            loadQuotesFromApi(model,binding)
+        }
     }
 
     fun loadQuotesFromApi(model : Model,binding: ActivityMainBinding) {

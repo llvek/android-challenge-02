@@ -18,7 +18,7 @@ class QuoteModel : ViewModel() {
     var loadingQuotes = true
     var loaded = false
 
-    fun getAllFromApi(binding: ActivityQuoteListBinding) {
+    fun getAllFromApi(binding: ActivityQuoteListBinding, activity: QuoteList) {
         loadingQuotes = true
         val retrofitBuilder = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
@@ -51,7 +51,7 @@ class QuoteModel : ViewModel() {
                 loadingQuotes = false
                 loaded = true
 
-                setNewRecyclerView(binding, loadedQuoteData)
+                setNewRecyclerView(binding, loadedQuoteData, activity)
             }
 
             override fun onFailure(call: Call<List<DataItem>?>, t: Throwable) {
@@ -62,8 +62,8 @@ class QuoteModel : ViewModel() {
         })
     }
 
-    fun setNewRecyclerView(binding: ActivityQuoteListBinding, data : Data) {
-        binding.recyclerView.adapter = QuoteAdapter(data)
+    fun setNewRecyclerView(binding: ActivityQuoteListBinding, data : Data, activity: QuoteList) {
+        binding.recyclerView.adapter = QuoteAdapter(data, activity)
         binding.reloadList.visibility = View.INVISIBLE
     }
 }

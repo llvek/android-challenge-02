@@ -26,8 +26,11 @@ class QuoteList : AppCompatActivity() {
         val model: QuoteModel by viewModels()
 
         binding.randomQuote.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            Intent(this, MainActivity::class.java).also {
+                it.putExtra("QUOTE", "Loading...")
+                it.putExtra("AUTHOR", "Loading...")
+                startActivity(it)
+            }
         }
 
         layoutManager = LinearLayoutManager(this)
@@ -37,6 +40,14 @@ class QuoteList : AppCompatActivity() {
         adapter = PrototypeAdapter()
         binding.recyclerView.adapter = adapter
 
-        model.getAllFromApi(binding)
+        model.getAllFromApi(binding, this)
+    }
+
+    fun startQuoteScreen(quote : String, author : String) {
+        Intent(this, MainActivity::class.java).also {
+            it.putExtra("QUOTE", quote)
+            it.putExtra("AUTHOR", author)
+            startActivity(it)
+        }
     }
 }

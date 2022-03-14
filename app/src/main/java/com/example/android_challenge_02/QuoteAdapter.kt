@@ -1,15 +1,18 @@
 package com.example.android_challenge_02
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 
-class QuoteAdapter(data : Data) : RecyclerView.Adapter<QuoteAdapter.ViewHolder>() {
+class QuoteAdapter(data : Data, screen : QuoteList) : RecyclerView.Adapter<QuoteAdapter.ViewHolder>() {
 
     private var quoteData = data
+    private var quoteListScreen = screen
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuoteAdapter.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.card_layout, parent, false)
@@ -36,7 +39,10 @@ class QuoteAdapter(data : Data) : RecyclerView.Adapter<QuoteAdapter.ViewHolder>(
             itemView.setOnClickListener{
                 val position : Int = adapterPosition
 
-                Toast.makeText(itemView.context, "you clicked on ${quoteData[position].source} quote", Toast.LENGTH_LONG).show()
+                var quote = quoteData[position].quote
+                var author = quoteData[position].source
+
+                quoteListScreen.startQuoteScreen(quote, author)
             }
         }
     }
