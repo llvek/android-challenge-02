@@ -34,7 +34,7 @@ class QuoteList : AppCompatActivity() {
 
         model.getAllFromApi(binding, this)
     }
-
+    
     fun startQuoteScreen(quote : String, author : String) {
         Intent(this, MainActivity::class.java).also {
             it.putExtra("QUOTE", quote)
