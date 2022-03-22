@@ -3,17 +3,17 @@ package com.example.android_challenge_02
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android_challenge_02.databinding.ActivityQuoteListBinding
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class QuoteList : AppCompatActivity() {
 
     private lateinit var binding: ActivityQuoteListBinding
-
-    var layoutManager: RecyclerView.LayoutManager? = null
-    var adapter: RecyclerView.Adapter<PrototypeAdapter.ViewHolder>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,20 +23,36 @@ class QuoteList : AppCompatActivity() {
         setContentView(binding.root)
 
         //Starts ViewModel
-        val model: QuoteModel by viewModels()
+        val model: NewQuoteModel by viewModels()
 
-        binding.randomQuote.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+        val screen = this
+        model.loadedQuoteData.observe(this){  data ->
+            Log.d("Captura","Meu Dado ${data}")
+            var linearLayout = LinearLayoutManager(screen)
+            binding.recyclerView.apply{ adapter = QuoteAdapter(data, screen); layoutManager = linearLayout }
         }
 
-        layoutManager = LinearLayoutManager(this)
+        binding.randomQuote.setOnClickListener {
+            Intent(this, MainActivity::class.java).also {
+                it.putExtra("QUOTE", "Loading...")
+                it.putExtra("AUTHOR", "Loading...")
+                startActivity(it)
+            }
+        }
+        var linearLayout = LinearLayoutManager(this)
+        binding.recyclerView.apply{ adapter = PrototypeAdapter(); layoutManager = linearLayout }
 
-        binding.recyclerView.layoutManager = layoutManager
+        GlobalScope.launch {
+            model.loadAllQuotesFromAPI()
+        }
 
-        adapter = PrototypeAdapter()
-        binding.recyclerView.adapter = adapter
+    }
 
-        model.getAllFromApi(binding)
+    fun startQuoteScreen(quote : String, author : String) {
+        Intent(this, MainActivity::class.java).also {
+            it.putExtra("QUOTE", quote)
+            it.putExtra("AUTHOR", author)
+            startActivity(it)
+        }
     }
 }
