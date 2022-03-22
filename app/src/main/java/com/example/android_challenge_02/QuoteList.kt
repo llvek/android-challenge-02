@@ -24,7 +24,7 @@ class QuoteList : AppCompatActivity() {
 
         //Starts ViewModel
         val model: NewQuoteModel by viewModels()
-        
+
         val screen = this
         model.loadedQuoteData.observe(this){  data ->
             Log.d("Captura","Meu Dado ${data}")
