@@ -7,9 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class NewQuoteModel : ViewModel() {
     val API_URL = "https://philosophy-quotes-api.glitch.me/"
-    val loadedQuoteData: MutableLiveData<Data> by lazy {
-        MutableLiveData<Data>()
-    }
+    val loadedQuoteData = MutableLiveData<Data>()
     var quoteData = Data()
 
     suspend fun loadAllQuotesFromAPI(){
@@ -21,7 +19,7 @@ class NewQuoteModel : ViewModel() {
 
         val callback = endpoint.responseGetData()
         return when (callback.code()) {
-            200 -> quoteData = processQuotes(callback.body())
+            200 -> loadedQuoteData.postValue(processQuotes(callback.body()))
             404 -> println("Network Error")
             else -> println("Can't connect with Server")
         }
