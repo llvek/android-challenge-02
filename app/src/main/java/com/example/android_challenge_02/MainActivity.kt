@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.android_challenge_02.databinding.ActivityMainBinding
 import androidx.activity.viewModels
-
+//Single Quote Activity Class
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding

@@ -9,7 +9,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
+//Loads Data from API e 
 class Model : ViewModel() {
 
     val API_URL = "https://philosophy-quotes-api.glitch.me/"
