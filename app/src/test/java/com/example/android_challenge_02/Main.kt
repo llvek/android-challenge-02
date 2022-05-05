@@ -7,8 +7,7 @@ import java.lang.Thread.sleep
 fun main() {
     println("Hello")
     GlobalScope.launch {
-        var repo = ApiRepository()
-        print(repo.loadAllQuotesFromAPI().toString())
+
     }
     sleep(100000)
 }
