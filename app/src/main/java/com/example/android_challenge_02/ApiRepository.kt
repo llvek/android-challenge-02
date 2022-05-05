@@ -1,16 +1,22 @@
 package com.example.android_challenge_02
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class NewQuoteModel : ViewModel() {
+class ApiRepository {
     val API_URL = "https://philosophy-quotes-api.glitch.me/"
-    val loadedQuoteData = MutableLiveData<Data>()
-    var quoteData = Data()
 
-    suspend fun loadAllQuotesFromAPI(){
+    //Gets all data from api
+    suspend fun loadAllQuotesFromAPI(): Data {
+        var dataItem = DataItem(
+            "Load failed",
+            "Load failed",
+            "Load failed",
+            "Load failed"
+        )
+        var loadFailedMessage = Data()
+        loadFailedMessage.add(dataItem)
+
         val endpoint = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl(API_URL)
@@ -19,9 +25,15 @@ class NewQuoteModel : ViewModel() {
 
         val callback = endpoint.responseGetData()
         return when (callback.code()) {
-            200 -> loadedQuoteData.postValue(processQuotes(callback.body()))
-            404 -> println("Network Error")
-            else -> println("Can't connect with Server")
+            200 -> return processQuotes(callback.body())
+            404 -> {
+                println("Network Error")
+                return loadFailedMessage
+            }
+            else -> {
+                println("Can't connect with Server")
+                return loadFailedMessage
+            }
         }
     }
 
