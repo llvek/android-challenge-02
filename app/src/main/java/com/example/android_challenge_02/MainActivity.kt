@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         val quoteModel: QuoteModel by viewModels()
         val repositoryModel: RepositoryModel by viewModels()
 
-        binding.newQuoteButton.setOnClickListener{newQuoteClicked(repositoryModel.quoteData,quoteModel,repositoryModel)}
+        binding.newQuoteButton.setOnClickListener{newQuoteClicked(quoteModel,repositoryModel)}
         binding.quoteListButton.setOnClickListener{
             val intent = Intent(this, QuoteList::class.java)
             startActivity(intent)
@@ -46,9 +46,10 @@ class MainActivity : AppCompatActivity() {
 
         repositoryModel.quoteData.observe(this) { data ->
             Log.d("Captura", "Meu Dado ${data}")
-            if(!repositoryModel.dataLoaded){
+            if(quoteModel.observableQuote.value=="Loading..."||quoteModel.observableQuote.value=="Load Failed"){
                 quoteModel.getRandomQuote(data)
             }
+
         }
 
         if(intent.getStringExtra("QUOTE")!=null){
@@ -61,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         if(quoteModel.observableQuote.value=="Loading..."){
             Log.d("Debug","Entered auto load")
             lifecycleScope.launch {
-                newQuoteClicked(repositoryModel.quoteData, quoteModel, repositoryModel)
+                newQuoteClicked(quoteModel, repositoryModel)
             }
         }
 
@@ -72,14 +73,14 @@ class MainActivity : AppCompatActivity() {
         quoteModel.getRandomQuote(repositoryModel.quoteData)
     }
 
-    fun newQuoteClicked(quoteData: MutableLiveData<Data>, quoteModel: QuoteModel, repositoryModel: RepositoryModel){
+    fun newQuoteClicked(quoteModel: QuoteModel, repositoryModel: RepositoryModel){
+        var quoteData = repositoryModel.quoteData
         if(repositoryModel.dataLoaded){
             quoteModel.getRandomQuote(quoteData)
             Log.v("Debug","Data loaded")
         } else {
             lifecycleScope.launch {
                 repositoryModel.loadQuotes()
-                quoteModel.getRandomQuote(quoteData)
             }
         }
     }

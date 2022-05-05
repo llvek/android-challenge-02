@@ -25,11 +25,6 @@ class QuoteList : AppCompatActivity() {
         val model: RepositoryModel by viewModels()
 
         val screen = this
-/*        model.loadedQuoteData.observe(this){  data ->
-            Log.d("Captura","Meu Dado ${data}")
-            var linearLayout = LinearLayoutManager(screen)
-            binding.recyclerView.apply{ adapter = QuoteAdapter(data, screen); layoutManager = linearLayout }
-        }*/
         model.quoteData.observe(this) { data ->
             Log.d("Captura", "Meu Dado ${data}")
             var linearLayout = LinearLayoutManager(screen)

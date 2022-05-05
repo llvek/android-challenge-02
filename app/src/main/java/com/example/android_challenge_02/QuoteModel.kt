@@ -4,10 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 //Holds Main Activity UI State
 class QuoteModel : ViewModel() {
-    val observableQuote = MutableLiveData<String>()
-    val observablePhilosopher = MutableLiveData<String>()
-
-    var alreadyEnteredMainActivity = false
+    val observableQuote = MutableLiveData<String>("Loading...")
+    val observablePhilosopher = MutableLiveData<String>("Loading...")
 
     fun getRandomQuote(data : MutableLiveData<Data>){
         var quoteData = data.value?.random()
