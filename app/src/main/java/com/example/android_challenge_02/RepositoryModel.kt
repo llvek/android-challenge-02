@@ -11,8 +11,8 @@ class RepositoryModel: ViewModel() {
     var dataLoaded = false
 
     suspend fun loadQuotes() {
-        var repository = ApiRepository()
-        _quoteData.postValue(repository.loadAllQuotesFromAPI())
-        dataLoaded = true
+            var repository = ApiRepository()
+            _quoteData.postValue(repository.loadAllQuotesFromAPI())
+            dataLoaded = true
     }
 }

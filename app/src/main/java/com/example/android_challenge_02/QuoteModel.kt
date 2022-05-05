@@ -7,6 +7,8 @@ class QuoteModel : ViewModel() {
     val observableQuote = MutableLiveData<String>("Loading...")
     val observablePhilosopher = MutableLiveData<String>("Loading...")
 
+    var alreadyEnteredScreen = false
+
     fun getRandomQuote(data : MutableLiveData<Data>){
         var quoteData = data.value?.random()
         if(quoteData?.quote==null){

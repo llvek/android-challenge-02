@@ -49,13 +49,13 @@ class MainActivity : AppCompatActivity() {
             if(quoteModel.observableQuote.value=="Loading..."||quoteModel.observableQuote.value=="Load Failed"){
                 quoteModel.getRandomQuote(data)
             }
-
         }
 
-        if(intent.getStringExtra("QUOTE")!=null){
+        if(intent.getStringExtra("QUOTE")!=null&&!quoteModel.alreadyEnteredScreen){
             quoteModel.observableQuote.postValue(intent.getStringExtra("QUOTE").toString())
+            Log.d("Intent Quote",intent.getStringExtra("QUOTE").toString())
         }
-        if(intent.getStringExtra("AUTHOR")!=null){
+        if(intent.getStringExtra("AUTHOR")!=null&&!quoteModel.alreadyEnteredScreen){
             quoteModel.observablePhilosopher.postValue(intent.getStringExtra("AUTHOR").toString())
         }
 
@@ -65,6 +65,8 @@ class MainActivity : AppCompatActivity() {
                 newQuoteClicked(quoteModel, repositoryModel)
             }
         }
+
+        quoteModel.alreadyEnteredScreen = true
 
     }
 
